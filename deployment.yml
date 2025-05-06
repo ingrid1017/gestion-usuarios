@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gestion-usuarios-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gestion-usuarios
+  template:
+    metadata:
+      labels:
+        app: gestion-usuarios
+    spec:
+      containers:
+        - name: gestion-usuarios
+          image: gestion-usuarios:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DATABASE_URL
+              value: "postgresql://postgres:postgres@postgres-service:5432/gestion_usuarios_db"
